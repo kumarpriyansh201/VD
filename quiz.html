@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difficult Quiz for Manu</title>
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.5);
+            width: 50%;
+        }
+        .question {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ff1493;
+        }
+        .options button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin: 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .options button:hover {
+            background: #ff1493;
+            transform: scale(1.1);
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.7);
+        }
+        hr {
+            width: 50%;
+            border: 1px solid #ff1493;
+            margin: 20px auto;
+        }
+        .correct-popup img {
+            width: 200px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Difficult Quiz for Mera bachcha</h1>
+    
+    <h2>Maths Section</h2>
+    <hr>
+    <div class="quiz-container">
+        <div class="question">10/10?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('maths1')">1</button>
+            <button onclick="showWrongPopup('maths1')">0</button>
+            <button onclick="showWrongPopup('maths1')">Infinity</button>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question">If the answer is "infinity", what would be the question?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('maths2')">0/1</button>
+            <button onclick="showWrongPopup('maths2')">1/0</button>
+            <button onclick="showWrongPopup('maths2')">0/0</button>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question">How much do i love Janvi Baby?"</div>
+        <div class="options">
+            <button onclick="showWrongPopup('maths3')">10</button>
+            <button onclick="showWrongPopup('maths3')">100</button>
+            <button onclick="showWrongPopup('maths3')">1000</button>
+        </div>
+    </div>
+    
+    <h2>English Section</h2>
+    <hr>
+    <div class="quiz-container">
+        <div class="question">You are?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('english1')">Girl</button>
+            <button onclick="showWrongPopup('english1')">Boy</button>
+            <button onclick="showWrongPopup('english1')">Other</button>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question">What's the purpose of my life?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('english2')">Travel</button>
+            <button onclick="showWrongPopup('english2')">Study</button>
+            <button onclick="showWrongPopup('english2')">Kuch nhi krna</button>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question">Complete the sentence: ‘The Hottest thing in universe is ___’</div>
+        <div class="options">
+            <button onclick="showWrongPopup('english3')">Sun</button>
+            <button onclick="showWrongPopup('english3')">Earth</button>
+            <button onclick="showWrongPopup('english3')">Janvi</button>
+        </div>
+    </div>
+    
+    <h2>Fun Section</h2>
+    <hr>
+    <div class="quiz-container">
+        <div class="question">If Priyansh were an animal, what would he be?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('fun1')">Lion</button>
+            <button onclick="showWrongPopup('fun1')">Tiger</button>
+            <button onclick="showWrongPopup('fun1')">Elephant</button>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question">What is Priyansh's favorite activity?</div>
+        <div class="options">
+            <button onclick="showWrongPopup('fun2')">Sleeping</button>
+            <button onclick="showWrongPopup('fun2')">Studying</button>
+            <button onclick="showWrongPopup('fun2')">Talking to you</button>
+        </div>
+    </div>
+    
+    <button onclick="showFinalScore()" style="margin-top: 20px; background:#ff1493; color: white; padding: 15px; border: none; border-radius: 10px; font-size: 20px; cursor: pointer;">See Your Score</button>
+   
+    <div id="scorePopup" class="popup">
+        <p>You scored 0/8! I love you my Prashu Baby 😘</p>
+        <button onclick="closePopup()">Okay</button>
+    </div>
+    
+    <div id="correctAnswerPopup" class="popup correct-popup">
+        <p id="correctAnswerText">Correct Answer</p>
+        <img id="correctAnswerImage" src="" alt="Correct Answer">
+        <button onclick="closeCorrectPopup()">Close</button>
+    </div>
+
+<audio id="scoreAudio" style="display: none;">
+        <source src="youlost.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        function showWrongPopup(question) {
+            alert("Wrong answer!");
+            showCorrectPopup(question);
+        }
+
+        function showCorrectPopup(question) {
+            let correctText = '';
+            let imageUrl = '';
+
+            switch (question) {
+                case 'maths1':
+                    correctText = "The correct answer is Janvi!";
+                    imageUrl = "tenonten.jpeg";
+                    break;
+                case 'maths2':
+                    correctText = "The correct answer is Priyansh's love towards Janvi is infinity.";
+                    imageUrl = "infinity.jpeg"; 
+                    break;
+                case 'maths3':
+                    correctText = "The correct answer is Khup Sara";
+                    imageUrl = "khupsara.png";
+                    break;
+                case 'english1':
+                    correctText = "The correct answer is 'You are... Beautiful'.";
+                    imageUrl = "beautiful.jpeg";
+                    break;
+                case 'english2':
+                    correctText = "The correct answer is 'Make you my wife'... Will you marry me janvi?";
+                    imageUrl = "chulit.png"; 
+                    break;
+                case 'english3':
+                    correctText = "The correct answer is Sun, You Dumbass 😂❤️!";
+                    imageUrl = "surya.jpg"; 
+                    break;
+                case 'fun1':
+                    correctText = "The correct answer is, Suwar🐷 for you!";
+                    imageUrl = "puppy.jpeg";
+                    break;
+                case 'fun2':
+                    correctText = "The correct answer is Looking at Janvi ❤️";
+                    imageUrl = "looking.jpeg";
+                    break;
+                default:
+                    correctText = "No answer available!";
+                    imageUrl = "";
+            }
+
+            document.getElementById('correctAnswerText').innerText = correctText;
+            document.getElementById('correctAnswerImage').src = imageUrl;
+            document.getElementById('correctAnswerPopup').style.display = 'block';
+        }
+
+        function closeCorrectPopup() {
+            document.getElementById('correctAnswerPopup').style.display = 'none';
+        }
+
+        function showFinalScore() {
+            document.getElementById("scorePopup").style.display = "block";
+document.getElementById("scoreAudio").play(); // Play the audio
+        }
+
+        function closePopup() {
+            document.getElementById("scorePopup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
